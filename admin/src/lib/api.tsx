@@ -1,7 +1,6 @@
-
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+const API_BASE_URL = 'http://localhost:3000/api/v1';
 
 // Create axios instance with default config
 const apiClient = axios.create({
@@ -11,14 +10,14 @@ const apiClient = axios.create({
   },
 });
 
-// Add a request interceptor to include token with every request
+// Add a request interceptor to include adminToken with every request
 apiClient.interceptors.request.use(
   (config) => {
     console.log("Making request to:", config.url);
-    const token = localStorage.getItem('adminToken');
-    if (token) {
-      console.log("Including token in request");
-      config.headers.Authorization = `Bearer ${token}`;
+    const adminToken = localStorage.getItem('adminToken');
+    if (adminToken) {
+      console.log("Including adminToken in request");
+      config.headers.Authorization = `Bearer ${adminToken}`;
     }
     return config;
   },
@@ -30,7 +29,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      console.log("Received 401 unauthorized, clearing token");
+      console.log("Received 401 unauthorized, clearing adminToken");
       localStorage.removeItem('adminToken');
     }
     return Promise.reject(error);
