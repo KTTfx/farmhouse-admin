@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/lib/next-themes";
 import Admin from "./pages/Admin";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from './context/AuthContext';
 
 const queryClient = new QueryClient();
 
@@ -16,12 +17,14 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename="/">
+        <BrowserRouter>
+        <AuthProvider>
           <Routes>
             <Route path="/" element={<Auth />} />
             <Route path="/dashboard" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+        </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
