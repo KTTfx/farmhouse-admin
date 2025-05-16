@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,7 @@ export const AdminAuthForm = () => {
           title: "Login successful",
           description: "Welcome to the admin dashboard.",
         });
-        navigate("/");
+        navigate("/dashboard");
       }, 1000);
     } catch (error) {
       toast({
