@@ -5,37 +5,46 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/context/AuthContext";
+import { adminService } from "../../services/admin.service";
 
 export const AdminAuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { isLoading } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    if (!email || !password) {
+      toast({
+        title: "Missing credentials",
+        description: "Please enter your email and password.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     try {
-      // In a real app, you would call your admin authentication API here
-      setTimeout(() => {
-        // Simulate successful login for demonstration
-        localStorage.setItem("adminToken", "sample-admin-token");
-        toast({
-          title: "Login successful",
-          description: "Welcome to the admin dashboard.",
-        });
-        navigate("/dashboard");
-      }, 1000);
+      await adminService.login(
+        email,
+        password,
+      )
+
+      toast({
+        title: "Login successful",
+        description: "Welcome back!",
+        variant: "default",
+      });
+
+      navigate("/dashboard");
     } catch (error) {
       toast({
         title: "Login failed",
         description: "Please check your credentials and try again.",
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
