@@ -14,16 +14,10 @@ interface Admin {
   phone: string
 }
 
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
 interface AuthContextType {
   Admin: Admin | null;
   isLoading: boolean;
   error: string | null;
-  login: (credentials: LoginCredentials) => Promise<void>;
   logout: () => void;
   clearError: () => void;
   isAuthenticated: boolean;
@@ -62,41 +56,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     checkAuth();
   }, []);
   
-  const login = async (credentials: LoginCredentials) => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Make the login request
-      console.log("Attempting login with credentials:", credentials);
-      const response = await apiClient.post('/auth/login', credentials);
-      console.log("Login response:", response.data);
-      
-      // The backend returns the token directly in the data field
-      // Note: Check your actual backend response structure
-      const token = response.data.data;
-      
-      if (token) {
-        console.log("Setting token in localStorage:", token);
-        localStorage.setItem('token', token);
-        
-        // After getting the token, fetch the user profile
-        const userResponse = await apiClient.get('/users/profile');
-        setAdmin(userResponse.data.data);
-        setIsAuthenticated(true);
-      } else {
-        throw new Error("No token received from server");
-      }
-    } catch (err: any) {
-      console.error("Login error:", err);
-      setError(err.response?.data?.message || 'Login failed');
-      setIsAuthenticated(false);
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  
   const logout = () => {
     localStorage.removeItem('token');
     setAdmin(null);
@@ -110,7 +69,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       Admin: admin, 
       isLoading, 
       error, 
-      login, 
       logout, 
       clearError, 
       isAuthenticated 
