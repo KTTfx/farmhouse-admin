@@ -1,4 +1,3 @@
-
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
@@ -13,11 +12,11 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link to="/" className="font-bold text-xl">Admin Portal</Link>
-            <nav>
-              <Link to="/auth" className="text-white hover:text-white/80">
+            {/* <nav>
+              <Link to="/" className="text-white hover:text-white/80">
                 Login
               </Link>
-            </nav>
+            </nav> */}
           </div>
         </div>
       </header>
