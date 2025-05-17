@@ -1,6 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { ShopTable } from "@/components/Admin/ShopTable";
+import { ShopTable } from "@/components/Dashboard/ShopTable";
+// import { useToast } from "@/components/ui/use-toast";
+import { UsersTable } from "@/components/Dashboard/UsersTable";
 import { Store, Users, Settings } from "lucide-react";
 import { AdminLayout } from "@/components/Layout/AdminLayout";
 
@@ -49,7 +51,7 @@ const Admin = () => {
               </Card>
             </TabsContent>
             
-            <TabsContent value="products">
+            {/* <TabsContent value="products">
               <Card className="border-0 sm:border p-3 sm:p-6">
                 <div className="text-center py-8 sm:py-12">
                   <p className="text-muted-foreground">Products management coming soon</p>
@@ -64,11 +66,13 @@ const Admin = () => {
                 </div>
               </Card>
             </TabsContent>
-            
+             */}
+             
             <TabsContent value="users">
               <Card className="border-0 sm:border p-3 sm:p-6">
-                <div className="text-center py-8 sm:py-12">
-                  <p className="text-muted-foreground">Users management coming soon</p>
+                <h2 className="text-xl font-semibold mb-4">Manage Users</h2>
+                <div className="overflow-x-auto">
+                  <UsersTable />
                 </div>
               </Card>
             </TabsContent>
