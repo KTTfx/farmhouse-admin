@@ -1,8 +1,7 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { ShopTable } from "@/components/Admin/ShopTable";
-import { Store, Package, ShoppingBag, Users, Settings } from "lucide-react";
+import { Store, Users, Settings } from "lucide-react";
 import { AdminLayout } from "@/components/Layout/AdminLayout";
 
 const Admin = () => {
@@ -25,18 +24,6 @@ const Admin = () => {
                   className="data-[state=active]:bg-ghana-green data-[state=active]:text-white px-4 py-2 text-xs"
                 >
                   <Store className="h-4.5 w-4.5" />
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="products"
-                  className="data-[state=active]:bg-ghana-green data-[state=active]:text-white px-4 py-2 text-xs mx-1"
-                >
-                  <Package className="h-4.5 w-4.5" />
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="orders"
-                  className="data-[state=active]:bg-ghana-green data-[state=active]:text-white px-4 py-2 text-xs mx-1"
-                >
-                  <ShoppingBag className="h-4.5 w-4.5" />
                 </TabsTrigger>
                 <TabsTrigger 
                   value="users"
