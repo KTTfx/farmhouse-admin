@@ -106,4 +106,18 @@ export const adminService = {
         });
         return response.data;
     },
+
+    // get orders
+    getOrders: async (page: number, limit: number) => {
+        const response = await apiClient.get('/orders', {
+            params: {
+                page,
+                limit,
+            }, 
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('adminToken')}`
+            }
+        })
+        return response.data.data
+    }
 }
