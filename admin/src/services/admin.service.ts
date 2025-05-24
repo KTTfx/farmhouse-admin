@@ -123,7 +123,7 @@ export const adminService = {
     
     // get order details
     getOrderDetails: async (orderId: string) => {
-        const response = await apiClient.get(`/admin/orders/${orderId}`, {
+        const response = await apiClient.get(`/orders/${orderId}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
             },
