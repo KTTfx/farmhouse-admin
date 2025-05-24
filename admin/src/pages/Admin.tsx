@@ -1,10 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { ShopTable } from "@/components/Dashboard/ShopTable";
-// import { useToast } from "@/components/ui/use-toast";
 import { UsersTable } from "@/components/Dashboard/UsersTable";
-// import { OrdersTable } from '@/components/Dashboard/OrdersTable'
-import { Store, Users, Settings } from "lucide-react";
+import { OrdersTable } from '@/components/Dashboard/OrdersTable';
+import { Store, Users, Settings, ShoppingBag } from "lucide-react";
 import { AdminLayout } from "@/components/Layout/AdminLayout";
 
 const Admin = () => {
@@ -27,6 +26,12 @@ const Admin = () => {
                   className="data-[state=active]:bg-ghana-green data-[state=active]:text-white px-4 py-2 text-xs"
                 >
                   <Store className="h-4.5 w-4.5" />
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="orders"
+                  className="data-[state=active]:bg-ghana-green data-[state=active]:text-white px-4 py-2 text-xs mx-1"
+                >
+                  <ShoppingBag className="h-4.5 w-4.5" />
                 </TabsTrigger>
                 <TabsTrigger 
                   value="users"
@@ -60,17 +65,16 @@ const Admin = () => {
               </Card>
             </TabsContent>
              */}
-            
+              
             <TabsContent value="orders">
               <Card className="border-0 sm:border p-3 sm:p-6">
-                <h2 className="text-xl font-semibold mb-4">Manage Users</h2>
+                <h2 className="text-xl font-semibold mb-4">Manage Orders</h2>
                 <div className="overflow-x-auto">
-                  {/* <OrdersTable /> */}
+                  <OrdersTable />
                 </div>
               </Card>
             </TabsContent>
             
-             
             <TabsContent value="users">
               <Card className="border-0 sm:border p-3 sm:p-6">
                 <h2 className="text-xl font-semibold mb-4">Manage Users</h2>
