@@ -109,15 +109,25 @@ export const adminService = {
 
     // get orders
     getOrders: async (page: number, limit: number) => {
-        const response = await apiClient.get('/orders', {
+        const response = await apiClient.get("/orders", {
             params: {
                 page,
                 limit,
-            }, 
+            },
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('adminToken')}`
-            }
-        })
-        return response.data.data
-    }
+                Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
+            },
+        });
+        return response.data;
+    },
+    
+    // get order details
+    getOrderDetails: async (orderId: string) => {
+        const response = await apiClient.get(`/admin/orders/${orderId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
+            },
+        });
+        return response.data;
+    },
 }
