@@ -7,6 +7,16 @@ export interface AdminUser {
     role: string;
 }
 
+export interface User {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    isVerified: boolean;
+    role: string;
+}
+
 export const adminService = {
     login: async (email: string, password: string) => {
         const response = await apiClient.post("/admin/login", {
@@ -130,4 +140,14 @@ export const adminService = {
         });
         return response.data;
     },
+
+    deleteOrder: async (orderId: string) => {
+        const response = await apiClient.delete(`/admin/orders/${orderId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('adminToken')}`
+                }
+            })
+        return response.data;
+    }
 }
