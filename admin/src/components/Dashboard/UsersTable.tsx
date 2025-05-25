@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { adminService, AdminUser } from "@/services/admin.service";
+import { adminService, User } from "@/services/admin.service";
 import { useToast } from "@/hooks/use-toast";
 import { 
   UserCog,
-  Shield,
-  User,
+  User2Icon,
   RefreshCw,
   Search,
   ShieldAlert,
@@ -32,11 +31,11 @@ import {
 // import { format } from "date-fns";
 
 export const UsersTable = () => {
-  const [users, setUsers] = useState<AdminUser[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
@@ -76,7 +75,7 @@ export const UsersTable = () => {
   }, [currentPage]);
 
   // View user details
-  const handleViewDetails = (user: AdminUser) => {
+  const handleViewDetails = (user: User) => {
     setSelectedUser(user);
     setIsDetailsOpen(true);
   };
@@ -98,7 +97,8 @@ export const UsersTable = () => {
   // Filter users based on search term and role
   const filteredUsers = users.filter(user => {
     const matchesSearch = 
-      user.name?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      user.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      user.lastName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
     
     if (roleFilter === 'all') return matchesSearch;
@@ -122,7 +122,7 @@ export const UsersTable = () => {
   if (!users.length) {
     return (
       <div className="text-center py-10">
-        <User className="mx-auto h-12 w-12 text-gray-400" />
+        <User2Icon className="mx-auto h-12 w-12 text-gray-400" />
         <p className="mt-4 text-gray-500 mb-4">No users found</p>
         <Button 
           variant="outline" 
@@ -204,10 +204,10 @@ export const UsersTable = () => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
-                      <User className="h-5 w-5 text-gray-500" />
+                      <User2Icon className="h-5 w-5 text-gray-500" />
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">{user.name || 'No Name'}</div>
+                      <div className="text-sm font-medium text-gray-900">{user.firstName + " " + user.lastName || 'No Name'}</div>
                       <div className="text-sm text-gray-500">ID: {user.id}</div>
                     </div>
                   </div>
@@ -277,7 +277,7 @@ export const UsersTable = () => {
                   ) : selectedUser.role.toUpperCase() === 'MODERATOR' ? (
                     <ShieldCheck className="h-10 w-10 text-blue-500" />
                   ) : (
-                    <User className="h-10 w-10 text-gray-400" />
+                    <User2Icon className="h-10 w-10 text-gray-400" />
                   )}
                 </div>
               </div>
@@ -285,7 +285,7 @@ export const UsersTable = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <p className="text-sm font-medium text-gray-500">Name</p>
-                  <p className="text-base">{selectedUser.name || 'Not provided'}</p>
+                  <p className="text-base">{selectedUser.firstName + " " + selectedUser.lastName || 'Not provided'}</p>
                 </div>
                 
                 <div>
@@ -308,15 +308,6 @@ export const UsersTable = () => {
               
               <div className="border-t pt-4 flex flex-wrap justify-end gap-2">
                 {/* These buttons would need additional functionality in your admin.service.ts */}
-                {selectedUser.role.toUpperCase() !== 'ADMIN' && (
-                  <Button 
-                    variant="outline"
-                    className="border-blue-500 text-blue-600 hover:bg-blue-50"
-                  >
-                    <Shield className="mr-2 h-4 w-4" />
-                    Change Role
-                  </Button>
-                )}
                 {selectedUser.role.toUpperCase() !== 'ADMIN' && (
                   <Button 
                     variant="outline"
