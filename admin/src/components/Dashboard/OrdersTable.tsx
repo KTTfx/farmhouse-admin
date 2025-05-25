@@ -88,7 +88,7 @@ export const OrdersTable = () => {
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);    const [orderDetails, setOrderDetails] = useState<Order | null>(null);
-    // const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
     const { toast } = useToast();
 
     const fetchOrders = async () => {
@@ -138,43 +138,30 @@ export const OrdersTable = () => {
                 variant: "destructive"
             });
         }
-    };    // const handleUpdateStatus = async (orderId: string, newStatus: string) => {
-    //     setIsUpdatingStatus(true);
+    };    
+    
+    const handledeleteOrder = async (orderId: string) => {
+        setIsDeleting(true);
         
-    //     try {
-    //         await adminService.updateOrderStatus(orderId, newStatus);
+        try {
+            await adminService.deleteOrder(orderId);
             
-    //         // Update the order in the list
-    //         setOrders(prevOrders => 
-    //             prevOrders.map(order => 
-    //                 order.id === orderId 
-    //                     ? { ...order, orderStatus: newStatus as 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' } 
-    //                     : order
-    //             )
-    //         );
-            
-    //         // Update the selected order if it's open
-    //         if (selectedOrder?.id === orderId) {
-    //             setSelectedOrder(prev => prev ? { ...prev, orderStatus: newStatus as 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' } : null);
-    //             setOrderDetails(prev => prev ? { ...prev, orderStatus: newStatus as 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' } : null);
-    //         }
-            
-    //         toast({
-    //             title: "Status Updated",
-    //             description: `Order status has been updated to ${newStatus}.`,
-    //             variant: "default"
-    //         });
-    //     } catch (error) {
-    //         console.error("Error updating order status:", error);
-    //         toast({
-    //             title: "Error",
-    //             description: "Failed to update order status.",
-    //             variant: "destructive"
-    //         });
-    //     } finally {
-    //         setIsUpdatingStatus(false);
-    //     }
-    // };
+            toast({
+                title: "Success",
+                description: `Order has been deleted successfully`,
+                variant: "default"
+            });
+        } catch (error) {
+            console.error("Error deleting order:", error);
+            toast({
+                title: "Error",
+                description: "Failed to update order status.",
+                variant: "destructive"
+            });
+        } finally {
+            setIsDeleting(false);
+        }
+    };
 
     const getStatusBadge = (status: string) => {
         switch (status) {
@@ -301,13 +288,18 @@ export const OrdersTable = () => {
                                     </div>
                                 </div>
                                   <div className="flex items-center gap-2">
-                                    <h3 className="text-sm font-medium mr-2">Update Status:</h3>
-                                    <select className="px-3 py-2 border rounded text-sm" disabled={true}>
-                                        <option value="PROCESSING" selected={orderDetails.orderStatus === 'PROCESSING'}>Processing</option>
-                                        <option value="SHIPPED" selected={orderDetails.orderStatus === 'SHIPPED'}>Shipped</option>
-                                        <option value="DELIVERED" selected={orderDetails.orderStatus === 'DELIVERED'}>Delivered</option>
-                                        <option value="CANCELLED" selected={orderDetails.orderStatus === 'CANCELLED'}>Cancelled</option>
-                                    </select>
+                                    <h3 className="text-sm font-medium mr-2"></h3>
+                                        <Button
+                                            variant="outline" 
+                                            size="sm" 
+                                            className="flex items-center border-red-500 text-red-500"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handledeleteOrder;
+                                            }}
+                                        >
+                                            Delete Order
+                                        </Button>
                                 </div>
                             </div>
 
