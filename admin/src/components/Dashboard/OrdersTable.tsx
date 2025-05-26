@@ -87,7 +87,8 @@ export const OrdersTable = () => {
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);    const [orderDetails, setOrderDetails] = useState<Order | null>(null);
+    const [totalPages, setTotalPages] = useState(1);    
+    const [orderDetails, setOrderDetails] = useState<Order | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
     const { toast } = useToast();
 
