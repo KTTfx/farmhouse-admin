@@ -46,7 +46,7 @@ export const UsersTable = () => {
     setIsLoading(true);
     try {
       const response = await adminService.getUsers(currentPage, 10);
-      console.log("Users response:", response);
+      // console.log("Users response:", response);
       
       // Assuming the API returns data in a specific structure
       // Adjust this based on your actual API response
@@ -58,7 +58,7 @@ export const UsersTable = () => {
         setUsers(response.data || []);
       }
     } catch (error) {
-      console.error("Error fetching users:", error);
+      // console.error("Error fetching users:", error);
       toast({
         title: "Error",
         description: "Failed to fetch users. Please try again.",
