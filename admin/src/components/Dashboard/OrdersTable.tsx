@@ -97,7 +97,7 @@ export const OrdersTable = () => {
 
         try {
             const response = await adminService.getOrders(currentPage, 10);
-            console.log('Orders response', response);
+            // console.log('Orders response', response);
 
             // Set orders from API response
             if (response.data && Array.isArray(response.data.orders)) {
@@ -108,7 +108,7 @@ export const OrdersTable = () => {
                 setOrders(response.data || []);
             }
         } catch (error) {
-            console.error("Error fetching orders:", error);
+            // console.error("Error fetching orders:", error);
             toast({
                 title: "Error",
                 description: "Failed to fetch orders. Please try again.",
@@ -132,7 +132,7 @@ export const OrdersTable = () => {
             const response = await adminService.getOrderDetails(order.id);
             setOrderDetails(response.data);
         } catch (error) {
-            console.error("Error fetching order details:", error);
+            // console.error("Error fetching order details:", error);
             toast({
                 title: "Error",
                 description: "Failed to fetch order details.",
@@ -153,7 +153,7 @@ export const OrdersTable = () => {
                 variant: "default"
             });
         } catch (error) {
-            console.error("Error deleting order:", error);
+            // console.error("Error deleting order:", error);
             toast({
                 title: "Error",
                 description: "Failed to update order status.",
