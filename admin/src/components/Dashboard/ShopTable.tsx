@@ -49,7 +49,7 @@ export const ShopTable = () => {
     setIsLoading(true);
     try {
       const response = await adminService.getShops(currentPage, 10);
-      console.log("Shops response:", response);
+      // console.log("Shops response:", response);
       
       // Assuming the API returns data in a specific structure
       // Adjust this based on your actual API response
@@ -61,7 +61,7 @@ export const ShopTable = () => {
         setShops(response.data || []);
       }
     } catch (error) {
-      console.error("Error fetching shops:", error);
+      // console.error("Error fetching shops:", error);
       toast({
         title: "Error",
         description: "Failed to fetch shops. Please try again.",
@@ -87,7 +87,7 @@ export const ShopTable = () => {
         setSelectedShop({...shop, ...detailedInfo.data});
       }
     } catch (error) {
-      console.error("Error fetching shop details:", error);
+      // console.error("Error fetching shop details:", error);
     }
     
     setIsDetailsOpen(true);
@@ -105,7 +105,7 @@ export const ShopTable = () => {
       // Refresh the shop list
       fetchShops();
     } catch (error) {
-      console.error("Error approving shop:", error);
+      // console.error("Error approving shop:", error);
       toast({
         title: "Error",
         description: "Failed to approve shop. Please try again.",
@@ -128,7 +128,7 @@ export const ShopTable = () => {
       // Refresh the shop list
       fetchShops();
     } catch (error) {
-      console.error("Error rejecting shop:", error);
+      // console.error("Error rejecting shop:", error);
       toast({
         title: "Error",
         description: "Failed to reject shop. Please try again.",
@@ -151,7 +151,7 @@ export const ShopTable = () => {
       // Refresh the shop list
       fetchShops();
     } catch (error) {
-      console.error("Error banning shop:", error);
+      // console.error("Error banning shop:", error);
       toast({
         title: "Error",
         description: "Failed to ban shop. Please try again.",
@@ -174,7 +174,7 @@ export const ShopTable = () => {
       // Refresh the shop list
       fetchShops();
     } catch (error) {
-      console.error("Error unbanning shop:", error);
+      // console.error("Error unbanning shop:", error);
       toast({
         title: "Error",
         description: "Failed to unban shop. Please try again.",
