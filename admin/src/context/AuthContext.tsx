@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           setAdmin(response.data.data);
           setIsAuthenticated(true);
         } catch (err) {
-          console.error("Failed to validate token:", err);
+          // console.error("Failed to validate token:", err);
           localStorage.removeItem('token');
           setIsAuthenticated(false);
           setAdmin(null);
