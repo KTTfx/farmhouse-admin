@@ -13,10 +13,10 @@ const apiClient = axios.create({
 // Add a request interceptor to include adminToken with every request
 apiClient.interceptors.request.use(
   (config) => {
-    console.log("Making request to:", config.url);
+    // console.log("Making request to:", config.url);
     const adminToken = localStorage.getItem('adminToken');
     if (adminToken) {
-      console.log("Including adminToken in request");
+      // console.log("Including adminToken in request");
       config.headers.Authorization = `Bearer ${adminToken}`;
     }
     return config;
@@ -29,7 +29,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      console.log("Received 401 unauthorized, clearing adminToken");
+      // console.log("Received 401 unauthorized, clearing adminToken");
       localStorage.removeItem('adminToken');
     }
     return Promise.reject(error);
