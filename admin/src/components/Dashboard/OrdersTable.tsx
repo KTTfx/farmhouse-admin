@@ -84,12 +84,10 @@ interface Order {
 export const OrdersTable = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);    
     const [orderDetails, setOrderDetails] = useState<Order | null>(null);
-    const [isDeleting, setIsDeleting] = useState(false);
     const { toast } = useToast();
 
     const fetchOrders = async () => {
@@ -124,8 +122,7 @@ export const OrdersTable = () => {
     }, [currentPage]);
 
     const handleOpenDetails = async (order: Order) => {
-        setSelectedOrder(order);
-        setIsDetailsOpen(true);
+        setOrderDetails(order);
         
         try {
             // Fetch detailed order information
@@ -142,7 +139,6 @@ export const OrdersTable = () => {
     };    
     
     const handledeleteOrder = async (orderId: string) => {
-        setIsDeleting(true);
         
         try {
             await adminService.deleteOrder(orderId);
@@ -160,7 +156,6 @@ export const OrdersTable = () => {
                 variant: "destructive"
             });
         } finally {
-            setIsDeleting(false);
         }
     };
 
@@ -269,7 +264,7 @@ export const OrdersTable = () => {
             </div>
 
             {/* Order details dialog */}
-            <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
+            <Dialog open={!!orderDetails} onOpenChange={() => setOrderDetails(null)}>
                 <DialogContent className="max-w-3xl">
                     <DialogHeader>
                         <DialogTitle>Order Details</DialogTitle>
@@ -406,7 +401,7 @@ export const OrdersTable = () => {
                     )}
 
                     <DialogFooter>
-                        <Button onClick={() => setIsDetailsOpen(false)} variant="outline">
+                        <Button onClick={() => setOrderDetails(null)} variant="outline">
                             Close
                         </Button>
                     </DialogFooter>
